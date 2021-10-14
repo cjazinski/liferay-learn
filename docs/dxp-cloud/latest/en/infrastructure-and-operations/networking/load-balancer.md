@@ -85,6 +85,19 @@ Domains created by DXP Cloud's infrastructure at `.lfr.cloud` are covered by a w
 
 For all custom domains added through the console or `LCP.json`, Liferay DXP Cloud reaches out to [Let's Encrypt](https://letsencrypt.org/) for a certificate that renews automatically and covers all custom domains you create.
 
+### Creating SSL CSR
+
+In order to create a CSR to have signed by your SSL provider, You will need to run the following command.
+
+```bash
+openssl req -new -newkey rsa:2048 -nodes -keyout server.key -out server.csr
+````
+You can now use the `server.csr` file to have signed by your SSL provider. 
+
+```{tip}
+The openssl command can be run on any unix machine you have access to. You do not need to run the command any any specific server. 
+```
+
 ### Adding Custom SSL Certificates
 
 You can also add your own SSL certificate to cover any custom domains you create. You can either use the SSL certificate provided by Let's Encrypt (for any custom domains added through the DXP Cloud console), or you can define one or more custom certificates in your `webserver` service's `LCP.json` file. If certificates exist in both places, then any custom certificates defined in the `LCP.json` file take precedent.
@@ -180,6 +193,10 @@ To encode the contents of these files and use them, perform the following steps:
 1. Copy all of the contents from the new, encoded `cert` file (in this example, `base64certfile.crt`) and paste them into the `crt` variable in your `webserver` service's `LCP.json` file.
 
 The `key` and `cert` values are now encoded and usable in your web server configuration.
+
+```{note}
+The `key` and `cert` base64 values should all be on the same line with no whitespaces. You should validate the `LCP.json` file to ensure no errors exist.
+````
 
 ```{tip}
 It is possible to include multiple values for the `cert` by concatenating certificates together into a single string, and then encoding the result in base-64 for the `crt` field.

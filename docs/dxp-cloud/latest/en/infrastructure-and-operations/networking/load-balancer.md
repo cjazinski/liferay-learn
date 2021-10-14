@@ -95,7 +95,7 @@ openssl req -new -newkey rsa:2048 -nodes -keyout server.key -out server.csr
 You can now use the `server.csr` file to have signed by your SSL provider. 
 
 ```{tip}
-The openssl command can be run on any unix machine you have access to. You do not need to run the command any any specific server. 
+The openssl command can be run on any unix machine you have access to. You do not need to run the command on any specific server. 
 ```
 
 ### Adding Custom SSL Certificates
